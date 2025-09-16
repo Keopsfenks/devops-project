@@ -1,9 +1,10 @@
 package user
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
-	"time"
 )
 
 type User struct {
@@ -14,6 +15,8 @@ type User struct {
 	PasswordHash string    `json:"password_hash" bson:"password_hash"`
 
 	IsDeleted bool `json:"is_deleted" bson:"is_deleted"`
+
+	RoleId uuid.UUID `json:"role_id" bson:"role_id"`
 
 	CreatedAt time.Time  `json:"created_at" bson:"created_at"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty" bson:"updated_at,omitempty"`

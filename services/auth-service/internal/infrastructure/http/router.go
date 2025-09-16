@@ -1,11 +1,12 @@
 package http
 
 import (
-	"auth-service/internal/infrastructure/http/middleware"
-	"github.com/labstack/echo/v4"
 	"log"
 	"os"
 	"time"
+
+	"auth-service/internal/infrastructure/http/middleware"
+	"github.com/labstack/echo/v4"
 )
 
 func NewRouter() *echo.Echo {
@@ -30,11 +31,15 @@ func NewRouter() *echo.Echo {
 
 	customLogger := log.New(logFile, "", 0)
 
-	e.Use(middleware.CustomLogger(middleware.LoggerConfig{
-		Format:     "[${time}] ${method} ${uri} - ${status} - ${latency} - ${remote_ip}",
-		TimeFormat: "2006-01-02 15:04:05",
-		SkipPaths:  []string{"/health"},
-		Output:     customLogger,
-	}))
+	e.Use(
+		middleware.CustomLogger(
+			middleware.LoggerConfig{
+				Format:     "[${time}] ${method} ${uri} - ${status} - ${latency} - ${remote_ip}",
+				TimeFormat: "2006-01-02 15:04:05",
+				SkipPaths:  []string{"/health"},
+				Output:     customLogger,
+			},
+		),
+	)
 	return e
 }
